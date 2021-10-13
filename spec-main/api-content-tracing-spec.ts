@@ -59,6 +59,11 @@ ifdescribe(!(['arm', 'arm64'].includes(process.arch)))('contentTracing', () => {
       const fileSizeInKiloBytes = getFileSizeInKiloBytes(outputFilePath);
       const expectedMaximumFileSize = 10; // Depends on a platform.
 
+      // Save file to investigate why the test fails.
+      if (process.platform !== 'win32') {
+        fs.writeFileSync('/tmp/artifact.json', fs.readFileSync(outputFilePath));
+      }
+
       expect(fileSizeInKiloBytes).to.be.above(0,
         `the trace output file is empty, check "${outputFilePath}"`);
       expect(fileSizeInKiloBytes).to.be.below(expectedMaximumFileSize,

@@ -1238,6 +1238,10 @@ steps-tests: &steps-tests
 
     - *step-maybe-cleanup-arm64-mac
 
+    - store_artifacts:
+        path: /tmp/artifact.json
+        destination: artifact.json
+
 steps-test-nan: &steps-test-nan
   steps:
     - attach_workspace:
